@@ -29,9 +29,11 @@ body {
   min-width: 100%;
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
+  padding-inline: 9.6rem;
   font-size: 1.8rem;
   font-style: normal;
   background-color: hsl(243, 96%, 9%);
+  color: hsl(0, 0%, 100%);
 }
 
 h1,
