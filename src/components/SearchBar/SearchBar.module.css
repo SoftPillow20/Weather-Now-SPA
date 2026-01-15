@@ -15,14 +15,9 @@
 }
 
 .searchBar > div {
-  width: 100%;
   display: flex;
   justify-content: center;
-}
-
-.search {
-  width: 35%;
-  position: relative;
+  gap: 1.2rem;
 }
 
 .searchBar input {
@@ -32,6 +27,8 @@
   background-color: hsl(243, 27%, 20%);
   border-radius: 1.1rem;
   border: none;
+  cursor: pointer;
+  color: hsl(0, 0%, 100%);
 }
 
 .searchBar img {
@@ -39,4 +36,25 @@
   top: 50%;
   left: 0%;
   transform: translate(100%, -50%);
+}
+
+.search {
+  width: 40rem;
+  position: relative;
+}
+
+.searchBtn {
+  background-color: hsl(233, 67%, 56%);
+  color: hsl(0, 0%, 100%);
+  padding-inline: 2rem;
+  font-size: 1.6rem;
+  border: none;
+  border-radius: 1.1rem;
+  cursor: pointer;
+
+  transition: background-color 250ms;
+}
+
+.searchBtn:hover {
+  background-color: hsl(248, 70%, 36%);
 }

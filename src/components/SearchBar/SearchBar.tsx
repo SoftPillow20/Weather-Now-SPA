@@ -13,8 +13,9 @@ function SearchBar() {
           />
           <img src="./assets/images/icon-search.svg" alt="search icon" />
         </div>
-        {/* This should be a link rather than a button. Reason is for user to be able to view previous request and current request at runtime. */}
-        {/* <Link to='' /> */}
+        <button role="button" className={styles.searchBtn}>
+          Search
+        </button>
       </div>
     </div>
   );
