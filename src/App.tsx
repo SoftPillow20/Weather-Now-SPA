@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import AppNav from "./components/AppNav/AppNav";
 import AppLayout from "./Pages/AppLayout";
+import Error from "./Pages/Error";
 
 type units = "metric" | "imperial";
 type unitsOption = true | false;
@@ -31,6 +32,7 @@ function App() {
         />
         <Routes>
           <Route index element={<AppLayout setOpenUnits={setOpenUnits} />} />
+          <Route path="error" element={<Error />} />
         </Routes>
       </BrowserRouter>
     </div>

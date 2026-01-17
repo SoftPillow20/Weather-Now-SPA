@@ -36,6 +36,12 @@ body {
   color: hsl(0, 0%, 100%);
 }
 
+h1 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
 h1,
 h2,
 h3,
