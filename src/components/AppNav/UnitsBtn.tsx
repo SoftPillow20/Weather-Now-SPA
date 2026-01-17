@@ -1,34 +1,23 @@
 import type { Dispatch, SetStateAction } from "react";
 import styles from "./UnitsBtn.module.css";
 
-type temperature = "celsius" | "fahrenheit";
-type windSpeed = "km/h" | "mph";
-type precipitation = "mm" | "in";
+type units = "metric" | "imperial";
 type unitsOption = true | false;
 
 type childrenProps = {
-  temp: string;
-  setTemp: Dispatch<SetStateAction<temperature>>;
-  windSpeed: string;
-  setWindSpeed: Dispatch<SetStateAction<windSpeed>>;
-  precipitation: string;
-  setPrecipitation: Dispatch<SetStateAction<precipitation>>;
+  units: string;
+  setUnits: Dispatch<SetStateAction<units>>;
   openUnits: boolean;
   setOpenUnits: Dispatch<SetStateAction<unitsOption>>;
 };
 
-function UnitsBtn({
-  temp,
-  setTemp,
-  windSpeed,
-  setWindSpeed,
-  precipitation,
-  setPrecipitation,
-  openUnits,
-  setOpenUnits,
-}: childrenProps) {
+function UnitsBtn({ units, setUnits, openUnits, setOpenUnits }: childrenProps) {
   function btnActive() {
     setOpenUnits((bool) => !bool);
+  }
+
+  function changeUnits() {
+    setUnits((units) => (units === "metric" ? "imperial" : "metric"));
   }
 
   return (
@@ -41,20 +30,22 @@ function UnitsBtn({
 
       {openUnits && (
         <div className={styles.imperialUnits}>
-          <p>Switch to Imperial</p>
+          <button onClick={() => changeUnits()}>
+            Switch to {units === "metric" ? "Imperial" : "Metric"}
+          </button>
           <ul className={styles.imperialUnitsList}>
             <p>Temperature</p>
-            <li onClick={() => setTemp("celsius")}>
+            <li className={units === "metric" ? styles.active : ""}>
               Celcius (°C)
-              {temp === "celsius" ? (
+              {units === "metric" ? (
                 <img src="../assets/images/icon-checkmark.svg" />
               ) : (
                 ""
               )}
             </li>
-            <li onClick={() => setTemp("fahrenheit")}>
+            <li className={units === "imperial" ? styles.active : ""}>
               Fahrenheit (°F)
-              {temp === "fahrenheit" ? (
+              {units === "imperial" ? (
                 <img src="../assets/images/icon-checkmark.svg" />
               ) : (
                 ""
@@ -63,17 +54,17 @@ function UnitsBtn({
           </ul>
           <ul className={styles.imperialUnitsList}>
             <p>Wind Speed</p>
-            <li onClick={() => setWindSpeed("km/h")}>
+            <li className={units === "metric" ? styles.active : ""}>
               km/h
-              {windSpeed === "km/h" ? (
+              {units === "metric" ? (
                 <img src="../assets/images/icon-checkmark.svg" />
               ) : (
                 ""
               )}
             </li>
-            <li onClick={() => setWindSpeed("mph")}>
+            <li className={units === "imperial" ? styles.active : ""}>
               mph
-              {windSpeed === "mph" ? (
+              {units === "imperial" ? (
                 <img src="../assets/images/icon-checkmark.svg" />
               ) : (
                 ""
@@ -82,17 +73,17 @@ function UnitsBtn({
           </ul>
           <ul className={styles.imperialUnitsList}>
             <p>Precipitation</p>
-            <li onClick={() => setPrecipitation("mm")}>
+            <li className={units === "metric" ? styles.active : ""}>
               Millimeters (mm)
-              {precipitation === "mm" ? (
+              {units === "metric" ? (
                 <img src="../assets/images/icon-checkmark.svg" />
               ) : (
                 ""
               )}
             </li>
-            <li onClick={() => setPrecipitation("in")}>
+            <li className={units === "imperial" ? styles.active : ""}>
               Inches (in)
-              {precipitation == "in" ? (
+              {units == "imperial" ? (
                 <img src="../assets/images/icon-checkmark.svg" />
               ) : (
                 ""

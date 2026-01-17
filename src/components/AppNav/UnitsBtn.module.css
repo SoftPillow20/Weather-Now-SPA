@@ -1,4 +1,5 @@
 .imperialUnits {
+  padding: 0.8rem;
   font-size: 1.6rem;
   width: 21rem;
   border-radius: 1.2rem;
@@ -10,13 +11,25 @@
   background-color: hsl(243, 27%, 20%);
 }
 
-.imperialUnits > p {
-  margin: 1.4rem 1.4rem 0.8rem;
+.imperialUnits > button {
+  width: 100%;
+  display: flex;
+  padding: 0.8rem 1rem;
+  border-radius: 0.8rem;
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 250ms;
 }
 
-.imperialUnitsList {
+.imperialUnits > button:hover,
+.imperialUnits > button:focus {
+  background-color: hsl(243, 23%, 24%);
+}
+
+.imperialUnitsList:not(:last-child) {
   padding-block: 0.8rem;
-  margin-inline: 0.8rem;
   border-bottom: 1.6px solid hsl(243, 23%, 30%);
   list-style-type: none;
 }
@@ -32,11 +45,10 @@
   justify-content: space-between;
   padding: 0.8rem 1rem;
   border-radius: 0.8rem;
-  cursor: pointer;
   transition: background-color 250ms;
 }
 
-.imperialUnitsList > li:hover {
+.imperialUnitsList > li.active {
   background-color: hsl(243, 23%, 24%);
 }
 

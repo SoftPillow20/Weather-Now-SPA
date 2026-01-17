@@ -3,15 +3,12 @@ import { useEffect, useState } from "react";
 import AppNav from "./components/AppNav/AppNav";
 import AppLayout from "./Pages/AppLayout";
 
-type temperature = "celsius" | "fahrenheit";
-type windSpeed = "km/h" | "mph";
-type precipitation = "mm" | "in";
+type units = "metric" | "imperial";
+type unitsOption = true | false;
 
 function App() {
-  const [temp, setTemp] = useState<temperature>("celsius");
-  const [windSpeed, setWindSpeed] = useState<windSpeed>("km/h");
-  const [precipitation, setPrecipitation] = useState<precipitation>("mm");
-  const [openUnits, setOpenUnits] = useState(false);
+  const [units, setUnits] = useState<units>("metric");
+  const [openUnits, setOpenUnits] = useState<unitsOption>(false);
 
   // Enables closing units button by clicking Escape anywhere on the screen
   useEffect(() => {
@@ -27,12 +24,8 @@ function App() {
     <div>
       <BrowserRouter>
         <AppNav
-          temp={temp}
-          setTemp={setTemp}
-          windSpeed={windSpeed}
-          setWindSpeed={setWindSpeed}
-          precipitation={precipitation}
-          setPrecipitation={setPrecipitation}
+          units={units}
+          setUnits={setUnits}
           openUnits={openUnits}
           setOpenUnits={setOpenUnits}
         />
