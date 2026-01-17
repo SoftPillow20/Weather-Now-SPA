@@ -1,14 +1,16 @@
 .imperialUnits {
-  padding: 0.8rem;
   font-size: 1.6rem;
-  width: 21rem;
-  border-radius: 1.2rem;
   text-align: left;
   font-weight: 400;
+  width: 21rem;
+  padding: 0.8rem;
+  border-radius: 1.2rem;
+  border: 1px solid hsl(243, 23%, 30%);
+  background-color: hsl(243, 27%, 20%);
+  box-shadow: 0rem 0.4rem 1.6rem 0.2rem hsl(243, 96%, 9%);
   position: absolute;
   top: 6.4rem;
   right: 0;
-  background-color: hsl(243, 27%, 20%);
 }
 
 .imperialUnits > button {
