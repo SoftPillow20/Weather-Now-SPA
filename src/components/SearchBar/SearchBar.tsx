@@ -1,6 +1,13 @@
+import type { Dispatch, SetStateAction } from "react";
 import styles from "./SearchBar.module.css";
 
-function SearchBar() {
+type unitsOption = true | false;
+
+type childrenProps = {
+  setOpenUnits: Dispatch<SetStateAction<unitsOption>>;
+};
+
+function SearchBar({ setOpenUnits }: childrenProps) {
   return (
     <div className={styles.searchBar}>
       <h1 className="title">How's the sky looking today?</h1>
@@ -10,6 +17,7 @@ function SearchBar() {
             name="searchBar"
             type="text"
             placeholder="Search for a place..."
+            onClick={() => setOpenUnits(false)}
           />
           <img src="./assets/images/icon-search.svg" alt="search icon" />
         </div>
