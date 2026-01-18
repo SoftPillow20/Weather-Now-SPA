@@ -1,0 +1,58 @@
+.hourlyForecast {
+  height: 100%;
+  border-radius: 2rem;
+  padding: 2.6rem 2rem;
+  background-color: hsl(243, 27%, 20%);
+}
+
+.hourlyForecast h2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.hourlyForecast > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.6rem;
+}
+
+.hourlyForecast button {
+  display: flex;
+  gap: 1.2rem;
+  border: none;
+  color: inherit;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.8rem;
+  background-color: hsl(243, 23%, 30%);
+  cursor: pointer;
+}
+
+.hourly {
+  list-style-type: none;
+  display: grid;
+  gap: 1.4rem;
+  grid-template-rows: repeat(24, 1fr);
+  max-height: 69rem;
+  overflow-y: scroll;
+}
+
+.hourlyList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: hsl(243, 23%, 24%);
+  padding: 1.2rem;
+  border-radius: 1.2rem;
+  border: 1px solid hsl(243, 23%, 30%);
+}
+
+.hourlyList div {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.hourlyList div > img {
+  height: 4.8rem;
+}

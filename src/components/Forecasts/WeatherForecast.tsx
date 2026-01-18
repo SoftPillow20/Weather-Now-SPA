@@ -1,6 +1,7 @@
 import CurrentForecast from "./CurrentForecast";
 import styles from "./WeatherForecast.module.css";
 import DailyForecast from "./DailyForecast";
+import HourlyForecast from "./HourlyForecast";
 
 function WeatherForecast() {
   return (
@@ -9,7 +10,9 @@ function WeatherForecast() {
         <CurrentForecast />
         <DailyForecast />
       </div>
-      <div>hourly forecast</div>
+      <div>
+        <HourlyForecast />
+      </div>
     </main>
   );
 }
