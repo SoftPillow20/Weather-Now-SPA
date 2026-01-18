@@ -3,6 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 15rem);
   gap: 2.6rem;
+  margin-bottom: 6.4rem;
 }
 
 .currentForecast h2 {
@@ -15,7 +16,7 @@
   color: hsl(250, 6%, 84%);
 }
 
-.currentForecast section {
+.location {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,17 +29,17 @@
   grid-row: span 2;
 }
 
-.container {
+.status {
   display: flex;
   align-items: center;
   gap: 1.6rem;
 }
 
-.container img {
+.status img {
   height: 9.6rem;
 }
 
-.container p {
+.status p {
   font-size: 9.6rem;
   font-weight: 600;
   font-style: italic;
