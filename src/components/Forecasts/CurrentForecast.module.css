@@ -21,10 +21,11 @@
   align-items: center;
   justify-content: space-between;
   padding-inline: 2.6rem;
+  border-radius: 2rem;
   background-image: url(../assets/images/bg-today-large.svg);
   background-repeat: no-repeat;
   background-position: 100%;
-  background-size: contain;
+  background-size: cover;
   grid-column: span 4;
   grid-row: span 2;
 }
