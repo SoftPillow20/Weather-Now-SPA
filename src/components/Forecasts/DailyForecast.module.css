@@ -1,0 +1,35 @@
+.dailyForecast h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2.4rem;
+}
+
+.daily {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1.6rem;
+}
+.daily li {
+  text-align: center;
+  padding: 1.6rem 0.8rem;
+  background-color: hsl(243, 23%, 24%);
+  border: 2px solid hsl(243, 23%, 30%);
+  border-radius: 1.2rem;
+}
+
+.daily li > img {
+  height: 6.4rem;
+  margin-block: 1.6rem;
+  margin-inline: auto;
+}
+
+.daily li > div {
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.daily li > div p:last-child {
+  color: hsl(240, 6%, 70%);
+}
