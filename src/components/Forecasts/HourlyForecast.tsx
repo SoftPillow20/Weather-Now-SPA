@@ -1,4 +1,5 @@
 import styles from "./HourlyForecast.module.css";
+import ListOfDays from "./ListOfDays";
 
 function HourlyForecast() {
   return (
@@ -8,6 +9,7 @@ function HourlyForecast() {
         <button>
           Tuesday
           <img src="./assets/images/icon-dropdown.svg" alt="dropdown icon" />
+          <ListOfDays />
         </button>
       </div>
       <ul className={styles.hourly}>
