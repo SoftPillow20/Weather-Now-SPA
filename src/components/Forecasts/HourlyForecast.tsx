@@ -1,15 +1,20 @@
+import { useState } from "react";
 import styles from "./HourlyForecast.module.css";
 import ListOfDays from "./ListOfDays";
 
+type btnOpen = true | false;
+
 function HourlyForecast() {
+  const [isBtnOpen, setIsBtnOpen] = useState<btnOpen>(false);
+
   return (
     <section className={styles.hourlyForecast}>
       <div>
         <h2>Hourly forecast</h2>
-        <button>
+        <button onClick={() => setIsBtnOpen((bool) => (bool ? false : true))}>
           Tuesday
           <img src="./assets/images/icon-dropdown.svg" alt="dropdown icon" />
-          <ListOfDays />
+          {isBtnOpen && <ListOfDays />}
         </button>
       </div>
       <ul className={styles.hourly}>
