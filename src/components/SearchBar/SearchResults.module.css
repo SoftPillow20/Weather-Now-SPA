@@ -1,0 +1,26 @@
+.searchCitiesList {
+  font-size: 1.6rem;
+  background-color: hsl(243, 27%, 20%);
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  position: absolute;
+  top: 120%;
+  width: 100%;
+  border-radius: 1.1rem;
+  padding: 1.2rem;
+}
+
+.searchCitiesList li {
+  padding: 1.2rem 0.8rem;
+  cursor: pointer;
+  border-radius: 0.8rem;
+}
+
+.searchCitiesList li:hover,
+.searchCitiesList li:focus {
+  box-shadow: inset 0px 0px 0px 1px hsl(243, 23%, 30%);
+  background-color: hsl(243, 23%, 24%);
+  z-index: 9999;
+}

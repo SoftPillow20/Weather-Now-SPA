@@ -1,5 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import styles from "./SearchBar.module.css";
+// import SearchResults from "./SearchResults";
+// import SearchInProgress from "./SearchInProgress";
 
 type unitsOption = true | false;
 
@@ -20,6 +22,8 @@ function SearchBar({ setOpenUnits }: childrenProps) {
             onClick={() => setOpenUnits(false)}
           />
           <img src="./assets/images/icon-search.svg" alt="search icon" />
+          {/* <SearchResults /> */}
+          {/* <SearchInProgress /> */}
         </div>
         <button role="button" className={styles.searchBtn}>
           Search

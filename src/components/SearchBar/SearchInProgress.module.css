@@ -1,0 +1,18 @@
+.searchInProgress {
+  font-size: 1.6rem;
+  padding: 1.6rem;
+  position: absolute;
+  top: 120%;
+  width: 100%;
+  border-radius: 1.1rem;
+  background-color: hsl(243, 27%, 20%);
+}
+
+.searchInProgress img {
+  display: inline-block;
+  aspect-ratio: 1;
+}
+
+.searchInProgress p {
+  margin-left: 2.8rem;
+}
