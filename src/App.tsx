@@ -10,6 +10,8 @@ type unitsOption = true | false;
 function App() {
   const [units, setUnits] = useState<units>("metric");
   const [openUnits, setOpenUnits] = useState<unitsOption>(false);
+  const [cityInput, setCityInput] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Enables closing units button by clicking Escape anywhere on the screen
   useEffect(() => {
@@ -21,6 +23,23 @@ function App() {
     return () => document.removeEventListener("keydown", onEsc);
   }, []);
 
+  useEffect(() => {
+    async function getCities() {
+      if (!cityInput) return;
+
+      if (!isLoading) return setIsLoading(true);
+
+      const data = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${cityInput}&count=4&language=en&format=json`,
+      );
+
+      const city = data.json();
+
+      return city;
+    }
+    getCities().then((data) => console.log(data));
+  }, [isLoading, cityInput]);
+
   return (
     <div>
       <BrowserRouter>
@@ -31,7 +50,16 @@ function App() {
           setOpenUnits={setOpenUnits}
         />
         <Routes>
-          <Route index element={<AppLayout setOpenUnits={setOpenUnits} />} />
+          <Route
+            index
+            element={
+              <AppLayout
+                isLoading={isLoading}
+                setOpenUnits={setOpenUnits}
+                setCityInput={setCityInput}
+              />
+            }
+          />
           <Route path="error" element={<Error />} />
         </Routes>
       </BrowserRouter>

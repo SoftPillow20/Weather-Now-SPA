@@ -6,13 +6,19 @@ import WeatherForecast from "../components/Forecasts/WeatherForecast";
 type unitsOption = true | false;
 
 type childrenProps = {
+  isLoading: boolean;
+  setCityInput: Dispatch<SetStateAction<string>>;
   setOpenUnits: Dispatch<SetStateAction<unitsOption>>;
 };
 
-function AppLayout({ setOpenUnits }: childrenProps) {
+function AppLayout({ isLoading, setCityInput, setOpenUnits }: childrenProps) {
   return (
     <>
-      <SearchBar setOpenUnits={setOpenUnits} />
+      <SearchBar
+        setOpenUnits={setOpenUnits}
+        setCityInput={setCityInput}
+        isLoading={isLoading}
+      />
       <WeatherForecast />
     </>
   );
