@@ -90,3 +90,9 @@ select {
     font-size: calc(8 / 16 * 100%);
   }
 }
+
+@media (max-width: 59em) {
+  body {
+    padding: 1.6rem;
+  }
+}

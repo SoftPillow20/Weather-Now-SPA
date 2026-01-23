@@ -22,6 +22,7 @@
 
 .searchBar input {
   width: 100%;
+  font-size: 2rem;
   padding: 1.2rem;
   padding-left: 6rem;
   background-color: hsl(243, 27%, 20%);
@@ -41,6 +42,12 @@
 .search {
   width: 40rem;
   position: relative;
+}
+
+@media (max-width: 65em) {
+  .search img {
+    height: auto;
+  }
 }
 
 .searchBtn {

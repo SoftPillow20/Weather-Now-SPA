@@ -3,6 +3,7 @@
   border-radius: 2rem;
   padding: 2.6rem 2rem;
   background-color: hsl(243, 27%, 20%);
+  overflow: hidden;
 }
 
 .hourlyForecast h2 {
@@ -47,6 +48,12 @@
   padding: 1.2rem;
   border-radius: 1.1rem;
   border: 1px solid hsl(243, 23%, 30%);
+}
+
+@media (max-width: 59em) {
+  .hourlyList {
+    padding: 1.8rem;
+  }
 }
 
 .hourlyList div {

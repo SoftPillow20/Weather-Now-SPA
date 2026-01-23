@@ -10,12 +10,27 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 1.6rem;
 }
+
+@media (max-width: 59em) {
+  .daily {
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+}
+
 .daily li {
   text-align: center;
   padding: 1.6rem 0.8rem;
   background-color: hsl(243, 23%, 24%);
   border: 2px solid hsl(243, 23%, 30%);
   border-radius: 1.2rem;
+}
+
+@media (max-width: 59em) {
+  .daily li {
+    grid-column: span 3;
+    padding: min(1.6rem, 2.6rem);
+  }
 }
 
 .daily li > img {
