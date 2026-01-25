@@ -3,5 +3,16 @@
   margin: 0 auto;
   padding-block: 4.8rem;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+}
+
+@media (max-width: 32em) {
+  .nav {
+    padding-top: 1.6rem;
+  }
+
+  .nav img {
+    height: 3.6rem;
+  }
 }

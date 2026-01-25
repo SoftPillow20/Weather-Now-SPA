@@ -10,6 +10,7 @@
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
+  text-align: center;
   letter-spacing: 1.2px;
   margin-bottom: 8rem;
 }
@@ -18,6 +19,19 @@
   display: flex;
   justify-content: center;
   gap: 1.2rem;
+}
+
+@media (max-width: 32em) {
+  .searchBar > div {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .searchBar h1 {
+    font-size: 6.2rem;
+    padding-inline: 1.2rem;
+    margin-bottom: 5.2rem;
+  }
 }
 
 .searchBar input {
@@ -30,6 +44,13 @@
   border: none;
   cursor: pointer;
   color: hsl(0, 0%, 100%);
+}
+
+@media (max-width: 32em) {
+  .searchBar input {
+    font-size: 2.4rem;
+    padding-left: 7.2rem;
+  }
 }
 
 .searchBar img {
@@ -48,17 +69,28 @@
   .search img {
     height: auto;
   }
+
+  .search {
+    width: 100%;
+    position: relative;
+  }
 }
 
 .searchBtn {
   background-color: hsl(233, 67%, 56%);
   color: hsl(0, 0%, 100%);
-  padding-inline: 2rem;
+  padding: 1.2rem 2rem;
   border: none;
   border-radius: 1.1rem;
   cursor: pointer;
 
   transition: background-color 250ms;
+}
+
+@media (max-width: 32em) {
+  .searchBtn {
+    font-size: 2.4rem;
+  }
 }
 
 .searchBtn:hover {
