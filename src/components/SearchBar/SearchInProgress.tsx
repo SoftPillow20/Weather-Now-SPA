@@ -3,7 +3,7 @@ import styles from "./SearchInProgress.module.css";
 function SearchInProgress() {
   return (
     <div className={styles.searchInProgress}>
-      <img src="../assets/images/icon-loading.svg" alt="loading icon" />
+      <div className={styles.loadingSpinner}></div>
       <p>Search in progress</p>
     </div>
   );

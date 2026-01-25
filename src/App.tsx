@@ -25,16 +25,15 @@ function App() {
 
   useEffect(() => {
     async function getCities() {
-      if (!cityInput) return;
+      if (!cityInput) return setIsLoading(false);
 
-      if (!isLoading) return setIsLoading(true);
+      if (cityInput.split("").length >= 1) return setIsLoading(true);
 
       const data = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${cityInput}&count=4&language=en&format=json`,
       );
 
       const city = data.json();
-
       return city;
     }
     getCities().then((data) => console.log(data));

@@ -1,7 +1,9 @@
 .searchInProgress {
   font-size: inherit;
   padding: 1.8rem;
-  padding-left: 4.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
   position: absolute;
   top: 120%;
   width: 100%;
@@ -12,5 +14,30 @@
 @media (max-width: 65em) {
   .searchInProgress {
     padding-left: 5.2rem;
+  }
+}
+
+.loadingSpinner {
+  width: 2.8rem;
+  --b: 5px; /* the border thickness */
+  aspect-ratio: 1;
+  border-radius: 100%;
+  padding: 0.2px;
+  background: conic-gradient(#8b8b8b00 10%, #d7d7d7) content-box;
+  -webkit-mask:
+    repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - var(--b) - 1px),
+      #000 calc(100% - var(--b))
+    );
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+  animation: loading 1s infinite steps(10);
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(1turn);
   }
 }
