@@ -1,12 +1,22 @@
 import styles from "./SearchResults.module.css";
 
-function SearchResults() {
+type searchResult = {
+  id: string | number;
+  name: string;
+};
+
+type childrenProps = {
+  res: searchResult[];
+};
+
+function SearchResults({ res }: childrenProps) {
   return (
     <ul className={styles.searchCitiesList}>
-      <li tabIndex={0}>City Name</li>
-      <li tabIndex={0}>City Name</li>
-      <li tabIndex={0}>City Name</li>
-      <li tabIndex={0}>City Name</li>
+      {res.map((result) => (
+        <li onClick={() => console.log(result.id)} key={result.id} tabIndex={0}>
+          {result.name}
+        </li>
+      ))}
     </ul>
   );
 }

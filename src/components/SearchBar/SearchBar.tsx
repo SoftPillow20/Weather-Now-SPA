@@ -5,18 +5,33 @@ import SearchInProgress from "./SearchInProgress";
 
 type unitsOption = true | false;
 
+type searchResult = {
+  id: string | number;
+  name: string;
+};
+
 type childrenProps = {
   isLoading: boolean;
+  cityInput: string;
+  results: searchResult[];
   setCityInput: Dispatch<SetStateAction<string>>;
   setOpenUnits: Dispatch<SetStateAction<unitsOption>>;
 };
 
-function SearchBar({ isLoading, setCityInput, setOpenUnits }: childrenProps) {
+function SearchBar({
+  isLoading,
+  setCityInput,
+  cityInput,
+  setOpenUnits,
+  results,
+}: childrenProps) {
   function updateInput(e: React.ChangeEvent<HTMLInputElement>) {
     setTimeout(() => {
       setCityInput(e.target.value);
     }, 500);
   }
+
+  const res = results.flatMap((res) => res);
 
   return (
     <div className={styles.searchBar}>
@@ -32,7 +47,7 @@ function SearchBar({ isLoading, setCityInput, setOpenUnits }: childrenProps) {
           />
           <img src="./assets/images/icon-search.svg" alt="search icon" />
           {isLoading && <SearchInProgress />}
-          {/* <SearchResults /> */}
+          {cityInput.split("").length >= 1 && <SearchResults res={res} />}
         </div>
         <button role="button" className={styles.searchBtn}>
           Search

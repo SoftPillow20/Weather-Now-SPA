@@ -7,11 +7,17 @@ import Error from "./Pages/Error";
 type units = "metric" | "imperial";
 type unitsOption = true | false;
 
+type searchResult = {
+  id: string | number;
+  name: string;
+};
+
 function App() {
   const [units, setUnits] = useState<units>("metric");
   const [openUnits, setOpenUnits] = useState<unitsOption>(false);
   const [cityInput, setCityInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [results, setResults] = useState<searchResult[]>([]);
 
   // Enables closing units button by clicking Escape anywhere on the screen
   useEffect(() => {
@@ -25,9 +31,14 @@ function App() {
 
   useEffect(() => {
     async function getCities() {
-      if (!cityInput) return setIsLoading(false);
+      if (!cityInput) {
+        setIsLoading(false);
+        return;
+      }
 
-      if (cityInput.split("").length >= 1) return setIsLoading(true);
+      if (cityInput.split("").length >= 1) {
+        setIsLoading(true);
+      }
 
       const data = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${cityInput}&count=4&language=en&format=json`,
@@ -36,7 +47,9 @@ function App() {
       const city = data.json();
       return city;
     }
-    getCities().then((data) => console.log(data));
+    getCities().then((result) =>
+      result?.results ? setResults(() => [result.results]) : [],
+    );
   }, [isLoading, cityInput]);
 
   return (
@@ -56,6 +69,8 @@ function App() {
                 isLoading={isLoading}
                 setOpenUnits={setOpenUnits}
                 setCityInput={setCityInput}
+                cityInput={cityInput}
+                results={results}
               />
             }
           />
