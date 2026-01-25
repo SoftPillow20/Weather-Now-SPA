@@ -1,5 +1,5 @@
 .searchCitiesList {
-  font-size: 1.6rem;
+  font-size: inherit;
   background-color: hsl(243, 27%, 20%);
   list-style-type: none;
   display: flex;

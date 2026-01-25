@@ -1,6 +1,7 @@
 .searchInProgress {
-  font-size: 1.6rem;
-  padding: 1.6rem;
+  font-size: inherit;
+  padding: 1.8rem;
+  padding-left: 4.6rem;
   position: absolute;
   top: 120%;
   width: 100%;
@@ -8,11 +9,8 @@
   background-color: hsl(243, 27%, 20%);
 }
 
-.searchInProgress img {
-  display: inline-block;
-  aspect-ratio: 1;
-}
-
-.searchInProgress p {
-  margin-left: 2.8rem;
+@media (max-width: 65em) {
+  .searchInProgress {
+    padding-left: 5.2rem;
+  }
 }

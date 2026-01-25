@@ -32,6 +32,7 @@ function SearchBar({ isLoading, setCityInput, setOpenUnits }: childrenProps) {
           />
           <img src="./assets/images/icon-search.svg" alt="search icon" />
           {isLoading && <SearchInProgress />}
+          {/* <SearchResults /> */}
         </div>
         <button role="button" className={styles.searchBtn}>
           Search
