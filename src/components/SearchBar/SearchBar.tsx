@@ -43,7 +43,9 @@ function SearchBar({
   }
 
   function onKeyGetFirstResult(e: React.KeyboardEvent, results: searchResult) {
-    if (results?.name !== capitalizeEachWord(results.name)) {
+    if (!results) return;
+
+    if (results.name !== capitalizeEachWord(results.name)) {
       return;
     }
 
