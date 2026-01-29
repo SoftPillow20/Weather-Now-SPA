@@ -25,13 +25,46 @@ function SearchBar({
   setOpenUnits,
   results,
 }: childrenProps) {
-  function updateInput(e: React.ChangeEvent<HTMLInputElement>) {
-    setTimeout(() => {
-      setCityInput(e.target.value);
-    }, 500);
+  // function updateInput(e: React.ChangeEvent<HTMLInputElement>) {
+  //   setTimeout(() => {
+  //     setCityInput(e.target.value);
+  //   }, 500);
+  // }
+
+  function capitalizeEachWord(sentence: string) {
+    const words = sentence.split(" ");
+
+    const capitalizedWords = words.map((word) => {
+      if (word.length === 0) return "";
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    });
+
+    return capitalizedWords.join(" ");
+  }
+
+  function onKeyGetFirstResult(e: React.KeyboardEvent, results: searchResult) {
+    if (results?.name !== capitalizeEachWord(results.name)) {
+      return;
+    }
+
+    if (e.key === "Enter") {
+      setCityInput("");
+      console.log(results);
+    }
+  }
+
+  function onClickGetFirstResult(results: searchResult) {
+    if (
+      results.name !==
+      cityInput.charAt(0).toUpperCase() + cityInput.slice(1)
+    ) {
+      return;
+    }
+    console.log(results);
   }
 
   const res = results.flatMap((res) => res);
+  const firstRes = res[0];
 
   return (
     <div className={styles.searchBar}>
@@ -42,14 +75,23 @@ function SearchBar({
             name="searchBar"
             type="text"
             placeholder="Search for a place..."
-            onClick={() => setOpenUnits(false)}
-            onChange={(e) => updateInput(e)}
+            value={cityInput}
+            onClick={() => setOpenUnits(false)} // closes an open unit setting
+            onChange={(e) => setCityInput(e.target.value)} // updating state through event emitter
+            onKeyDown={(e) => onKeyGetFirstResult(e, firstRes)}
           />
           <img src="./assets/images/icon-search.svg" alt="search icon" />
           {isLoading && <SearchInProgress />}
-          {cityInput.split("").length >= 1 && <SearchResults res={res} />}
+          {cityInput.split("").length >= 1 && (
+            <SearchResults res={res} setCityInput={setCityInput} />
+          )}
         </div>
-        <button role="button" className={styles.searchBtn}>
+        <button
+          role="button"
+          onClick={() => onClickGetFirstResult(firstRes)}
+          onKeyDown={(e) => onKeyGetFirstResult(e, firstRes)}
+          className={styles.searchBtn}
+        >
           Search
         </button>
       </div>

@@ -1,6 +1,11 @@
 import styles from "./CurrentForecast.module.css";
 
 function CurrentForecast() {
+  // TIME TO USE USEREDUCER HOOK
+  // SAVE ID TO:
+  // REFERENCE NAME & COUNTRY
+  // FOR CURRENT FORECAST
+
   return (
     <section className={styles.currentForecast}>
       <div className={styles.location}>

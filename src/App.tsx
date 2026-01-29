@@ -12,12 +12,18 @@ type searchResult = {
   name: string;
 };
 
+type geolocation = {
+  latitude: number;
+  longitude: number;
+};
+
 function App() {
   const [units, setUnits] = useState<units>("metric");
   const [openUnits, setOpenUnits] = useState<unitsOption>(false);
   const [cityInput, setCityInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [results, setResults] = useState<searchResult[]>([]);
+  // const [geolocation, setGeolication] = useState<geolocation>({});
 
   // Enables closing units button by clicking Escape anywhere on the screen
   useEffect(() => {
@@ -29,6 +35,7 @@ function App() {
     return () => document.removeEventListener("keydown", onEsc);
   }, []);
 
+  // Get city's results
   useEffect(() => {
     async function getCities() {
       if (!cityInput) {

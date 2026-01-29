@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from "react";
 import styles from "./SearchResults.module.css";
 
 type searchResult = {
@@ -7,13 +8,31 @@ type searchResult = {
 
 type childrenProps = {
   res: searchResult[];
+  setCityInput: Dispatch<SetStateAction<string>>;
 };
 
-function SearchResults({ res }: childrenProps) {
+function SearchResults({ setCityInput, res }: childrenProps) {
+  function onKeyGetResults(e: React.KeyboardEvent, result: searchResult) {
+    if (e.key === "Enter") {
+      setCityInput("");
+      console.log(result);
+    }
+  }
+
+  function onClickGetResults(result: searchResult) {
+    setCityInput("");
+    console.log(result);
+  }
+
   return (
     <ul className={styles.searchCitiesList}>
       {res.map((result) => (
-        <li onClick={() => console.log(result.id)} key={result.id} tabIndex={0}>
+        <li
+          onClick={() => onClickGetResults(result)}
+          onKeyDown={(e) => onKeyGetResults(e, result)}
+          key={result.id}
+          tabIndex={0}
+        >
           {result.name}
         </li>
       ))}
