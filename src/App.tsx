@@ -16,6 +16,8 @@ type resultsState = {
   longitude?: number;
 };
 
+const URL = "https://api.open-meteo.com/v1/forecast";
+
 function App() {
   const [units, setUnits] = useState<units>("metric");
   const [openUnits, setOpenUnits] = useState<unitsOption>(false);
@@ -36,27 +38,47 @@ function App() {
 
   // Get city's results
   useEffect(() => {
+    const controller = new AbortController();
+
     async function getCities() {
       if (!cityInput) {
         setIsLoading(false);
         return;
       }
 
-      if (cityInput.split("").length >= 1) {
+      if (cityInput.split("").length === 1) {
         setIsLoading(true);
       }
 
       const data = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${cityInput}&count=4&language=en&format=json`,
+        { signal: controller.signal },
       );
 
-      const city = data.json();
+      const city: { results: [] } = await data.json();
+      setIsLoading(false);
       return city;
     }
-    getCities().then((result) =>
-      result?.results ? setResults(() => [result.results]) : [],
-    );
+    getCities()
+      .then((result) =>
+        result?.results ? setResults(() => [...result.results]) : [],
+      )
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          console.error(err.message);
+        }
+      });
+
+    return function () {
+      controller.abort();
+    };
   }, [isLoading, cityInput]);
+
+  // Get the weather API data
+  useEffect(() => {
+    async function getWeatherData() {}
+    getWeatherData();
+  }, []);
 
   return (
     <div>

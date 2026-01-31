@@ -89,7 +89,7 @@ function SearchBar({
           />
           <img src="./assets/images/icon-search.svg" alt="search icon" />
           {isLoading && <SearchInProgress />}
-          {cityInput.split("").length >= 1 && (
+          {cityInput.split("").length > 1 && (
             <SearchResults
               res={res}
               setCityInput={setCityInput}

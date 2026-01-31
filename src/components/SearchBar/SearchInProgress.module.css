@@ -9,6 +9,7 @@
   width: 100%;
   border-radius: 1.1rem;
   background-color: hsl(243, 27%, 20%);
+  z-index: 9999;
 }
 
 @media (max-width: 65em) {

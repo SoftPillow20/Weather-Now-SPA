@@ -37,22 +37,42 @@ function CurrentForecast({ selectedCity }: childrenProps) {
 
       <div className={styles.currentOthers}>
         <p>
-          Feels Like <span className={styles.currentData}>64&deg;</span>
+          Feels Like
+          {selectedCity.latitude && selectedCity.longitude ? (
+            <span className={styles.currentData}>64&deg;</span>
+          ) : (
+            <span>&mdash;</span>
+          )}
         </p>
       </div>
       <div className={styles.currentOthers}>
         <p>
-          Humidity <span className={styles.currentData}>46%</span>
+          Humidity
+          {selectedCity.latitude && selectedCity.longitude ? (
+            <span className={styles.currentData}>46%</span>
+          ) : (
+            <span>&mdash;</span>
+          )}
         </p>
       </div>
       <div className={styles.currentOthers}>
         <p>
-          Wind <span className={styles.currentData}>9 mph</span>
+          Wind
+          {selectedCity.latitude && selectedCity.longitude ? (
+            <span className={styles.currentData}>9 mph</span>
+          ) : (
+            <span>&mdash;</span>
+          )}
         </p>
       </div>
       <div className={styles.currentOthers}>
         <p>
-          Precipitation <span className={styles.currentData}>0 in</span>
+          Precipitation
+          {selectedCity.latitude && selectedCity.longitude ? (
+            <span className={styles.currentData}>0 in</span>
+          ) : (
+            <span>&mdash;</span>
+          )}
         </p>
       </div>
     </section>
