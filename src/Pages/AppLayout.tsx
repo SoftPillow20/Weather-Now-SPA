@@ -12,12 +12,24 @@ type resultsState = {
   latitude?: number;
   longitude?: number;
 };
+type Weather = {
+  current?: {
+    time: string;
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    apparent_temperature: number;
+    precipitation: number;
+    wind_speed_10m: number;
+    weather_code: number;
+  };
+};
 
 type childrenProps = {
   isLoading: boolean;
   results: resultsState[];
   cityInput: string;
   selectedCity: resultsState;
+  weatherState: Weather;
   setSelectedCity: Dispatch<SetStateAction<resultsState>>;
   setCityInput: Dispatch<SetStateAction<string>>;
   setOpenUnits: Dispatch<SetStateAction<unitsOption>>;
@@ -31,6 +43,7 @@ function AppLayout({
   setOpenUnits,
   selectedCity,
   setSelectedCity,
+  weatherState,
 }: childrenProps) {
   return (
     <>
@@ -42,7 +55,10 @@ function AppLayout({
         results={results}
         setSelectedCity={setSelectedCity}
       />
-      <WeatherForecast selectedCity={selectedCity} />
+      <WeatherForecast
+        selectedCity={selectedCity}
+        weatherState={weatherState}
+      />
     </>
   );
 }

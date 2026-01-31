@@ -11,15 +11,31 @@ type resultsState = {
   longitude?: number;
 };
 
-type childrenProps = {
-  selectedCity: resultsState;
+type Weather = {
+  current?: {
+    time: string;
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    apparent_temperature: number;
+    precipitation: number;
+    wind_speed_10m: number;
+    weather_code: number;
+  };
 };
 
-function WeatherForecast({ selectedCity }: childrenProps) {
+type childrenProps = {
+  selectedCity: resultsState;
+  weatherState: Weather;
+};
+
+function WeatherForecast({ weatherState, selectedCity }: childrenProps) {
   return (
     <main className={styles.forecast}>
       <div>
-        <CurrentForecast selectedCity={selectedCity} />
+        <CurrentForecast
+          selectedCity={selectedCity}
+          weatherState={weatherState}
+        />
         <DailyForecast />
       </div>
       <div>

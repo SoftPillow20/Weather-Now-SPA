@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { fetchWeatherApi } from "openmeteo";
 import AppNav from "./components/AppNav/AppNav";
 import AppLayout from "./Pages/AppLayout";
@@ -18,6 +18,37 @@ type resultsState = {
 
 const URL = "https://api.open-meteo.com/v1/forecast";
 
+type Weather = {
+  current?: {
+    time: string;
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    apparent_temperature: number;
+    precipitation: number;
+    wind_speed_10m: number;
+    weather_code: number;
+  };
+};
+
+type weatherAction = {
+  type: "SET_CURRENT_WEATHER";
+  payload: Weather["current"];
+};
+
+const initialWeatherState: Weather = {};
+
+function weatherReducer(state: Weather, action: weatherAction): Weather {
+  switch (action.type) {
+    case "SET_CURRENT_WEATHER":
+      return {
+        ...state,
+        current: action.payload,
+      };
+    default:
+      return state;
+  }
+}
+
 function App() {
   const [units, setUnits] = useState<units>("metric");
   const [openUnits, setOpenUnits] = useState<unitsOption>(false);
@@ -25,6 +56,10 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [results, setResults] = useState<resultsState[]>([]);
   const [selectedCity, setSelectedCity] = useState<resultsState>({});
+  const [weatherState, dispatch] = useReducer(
+    weatherReducer,
+    initialWeatherState,
+  );
 
   // Enables closing units button by clicking Escape anywhere on the screen
   useEffect(() => {
@@ -104,28 +139,19 @@ function App() {
       const current = response.current()!;
 
       // Note: The order of weather variables in the URL query and the indices below need to match!
-      const weatherData = {
-        current: {
+
+      dispatch({
+        type: "SET_CURRENT_WEATHER",
+        payload: {
           time: new Date().toDateString(),
           temperature_2m: Math.round(current.variables(0)!.value()),
           relative_humidity_2m: current.variables(1)!.value(),
           apparent_temperature: Math.round(current.variables(2)!.value()),
-          is_day: current.variables(3)!.value(),
-          precipitation: Math.round(current.variables(4)!.value()),
-          wind_speed_10m: Math.round(current.variables(5)!.value()),
+          precipitation: Math.round(current.variables(3)!.value()),
+          wind_speed_10m: Math.round(current.variables(4)!.value()),
+          weather_code: current.variables(5)!.value(),
         },
-      };
-
-      // The 'weatherData' object now contains a simple structure, with arrays of datetimes and weather information
-      console.log(
-        `\nCurrent time: ${weatherData.current.time}\n`,
-        `\nCurrent temperature_2m: ${weatherData.current.temperature_2m}`,
-        `\nCurrent relative_humidity_2m: ${weatherData.current.relative_humidity_2m}`,
-        `\nCurrent apparent_temperature: ${weatherData.current.apparent_temperature}`,
-        `\nCurrent is_day: ${weatherData.current.is_day}`,
-        `\nCurrent precipitation: ${weatherData.current.precipitation}`,
-        `\nCurrent wind_speed_10m: ${weatherData.current.wind_speed_10m}`,
-      );
+      });
     }
     getWeatherData();
   }, [selectedCity]);
@@ -151,6 +177,7 @@ function App() {
                 results={results}
                 selectedCity={selectedCity}
                 setSelectedCity={setSelectedCity}
+                weatherState={weatherState}
               />
             }
           />

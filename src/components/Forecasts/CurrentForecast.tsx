@@ -8,11 +8,51 @@ type resultsState = {
   longitude?: number;
 };
 
-type childrenProps = {
-  selectedCity: resultsState;
+type Weather = {
+  current?: {
+    time: string;
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    apparent_temperature: number;
+    precipitation: number;
+    wind_speed_10m: number;
+    weather_code: number;
+  };
 };
 
-function CurrentForecast({ selectedCity }: childrenProps) {
+type childrenProps = {
+  selectedCity: resultsState;
+  weatherState: Weather;
+};
+
+// type WeatherRule = {
+//   min: number;
+//   max: number;
+//   label: string;
+// };
+
+function CurrentForecast({ weatherState, selectedCity }: childrenProps) {
+  // // For testing
+  // if (weatherState.current === undefined) {
+  //   return;
+  // } else {
+  //   console.log(Math.round(weatherState.current.weather_code));
+  //   console.log(
+  //     interpretWeatherCode(Math.round(weatherState.current.weather_code)),
+  //   );
+  //   console.log(interpretWeatherCode(43));
+  // }
+
+  const date = new Date();
+
+  // Format for a specific locale (e.g., British English)
+  const formattedGB = new Intl.DateTimeFormat("en-GB", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+
   return (
     <section className={styles.currentForecast}>
       {selectedCity.latitude && selectedCity.longitude ? (
@@ -21,11 +61,11 @@ function CurrentForecast({ selectedCity }: childrenProps) {
             <h2>
               {selectedCity.name}, {selectedCity.country}
             </h2>
-            <p>Tuesday, Aug 5, 2025</p>
+            <p>{formattedGB}</p>
           </div>
           <div className={styles.status}>
-            <img src="../assets/images/icon-sunny.webp" alt="sunny icon" />
-            <p>68&deg;</p>
+            <img src={`../assets/images/icon-sunny.webp`} alt="sunny icon" />
+            <p>{weatherState.current?.temperature_2m}&deg;</p>
           </div>
         </div>
       ) : (
@@ -39,7 +79,9 @@ function CurrentForecast({ selectedCity }: childrenProps) {
         <p>
           Feels Like
           {selectedCity.latitude && selectedCity.longitude ? (
-            <span className={styles.currentData}>64&deg;</span>
+            <span className={styles.currentData}>
+              {weatherState.current?.apparent_temperature}&deg;
+            </span>
           ) : (
             <span>&mdash;</span>
           )}
@@ -49,7 +91,9 @@ function CurrentForecast({ selectedCity }: childrenProps) {
         <p>
           Humidity
           {selectedCity.latitude && selectedCity.longitude ? (
-            <span className={styles.currentData}>46%</span>
+            <span className={styles.currentData}>
+              {weatherState.current?.relative_humidity_2m}%
+            </span>
           ) : (
             <span>&mdash;</span>
           )}
@@ -59,7 +103,9 @@ function CurrentForecast({ selectedCity }: childrenProps) {
         <p>
           Wind
           {selectedCity.latitude && selectedCity.longitude ? (
-            <span className={styles.currentData}>9 mph</span>
+            <span className={styles.currentData}>
+              {weatherState.current?.wind_speed_10m} mph
+            </span>
           ) : (
             <span>&mdash;</span>
           )}
@@ -69,7 +115,9 @@ function CurrentForecast({ selectedCity }: childrenProps) {
         <p>
           Precipitation
           {selectedCity.latitude && selectedCity.longitude ? (
-            <span className={styles.currentData}>0 in</span>
+            <span className={styles.currentData}>
+              {weatherState.current?.precipitation} in
+            </span>
           ) : (
             <span>&mdash;</span>
           )}
