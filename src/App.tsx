@@ -46,16 +46,18 @@ function App() {
         return;
       }
 
-      if (cityInput.split("").length === 1) {
-        setIsLoading(true);
-      }
-
       const data = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${cityInput}&count=4&language=en&format=json`,
         { signal: controller.signal },
       );
 
       const city: { results: [] } = await data.json();
+
+      if (cityInput.split("").length === 1 || !city.results) {
+        setIsLoading(true);
+        return;
+      }
+
       setIsLoading(false);
       return city;
     }
