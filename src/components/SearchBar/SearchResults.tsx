@@ -1,26 +1,32 @@
 import type { Dispatch, SetStateAction } from "react";
 import styles from "./SearchResults.module.css";
 
-type searchResult = {
-  id: string | number;
-  name: string;
+type resultsState = {
+  id?: number;
+  name?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
 };
 
 type childrenProps = {
-  res: searchResult[];
+  res: resultsState[];
   setCityInput: Dispatch<SetStateAction<string>>;
+  setSelectedCity: Dispatch<SetStateAction<resultsState>>;
 };
 
-function SearchResults({ setCityInput, res }: childrenProps) {
-  function onKeyGetResults(e: React.KeyboardEvent, result: searchResult) {
+function SearchResults({ setCityInput, res, setSelectedCity }: childrenProps) {
+  function onKeyGetResults(e: React.KeyboardEvent, result: resultsState) {
     if (e.key === "Enter") {
       setCityInput("");
+      setSelectedCity(() => result);
       console.log(result);
     }
   }
 
-  function onClickGetResults(result: searchResult) {
+  function onClickGetResults(result: resultsState) {
     setCityInput("");
+    setSelectedCity(() => result);
     console.log(result);
   }
 

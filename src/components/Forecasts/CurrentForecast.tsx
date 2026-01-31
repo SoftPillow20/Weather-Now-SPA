@@ -1,23 +1,40 @@
 import styles from "./CurrentForecast.module.css";
 
-function CurrentForecast() {
-  // TIME TO USE USEREDUCER HOOK
-  // SAVE ID TO:
-  // REFERENCE NAME & COUNTRY
-  // FOR CURRENT FORECAST
+type resultsState = {
+  id?: number;
+  name?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
+};
 
+type childrenProps = {
+  selectedCity: resultsState;
+};
+
+function CurrentForecast({ selectedCity }: childrenProps) {
   return (
     <section className={styles.currentForecast}>
-      <div className={styles.location}>
-        <div>
-          <h2>Berlin, Germany</h2>
-          <p>Tuesday, Aug 5, 2025</p>
+      {selectedCity.latitude && selectedCity.longitude ? (
+        <div className={`${styles.location}`}>
+          <div>
+            <h2>
+              {selectedCity.name}, {selectedCity.country}
+            </h2>
+            <p>Tuesday, Aug 5, 2025</p>
+          </div>
+          <div className={styles.status}>
+            <img src="../assets/images/icon-sunny.webp" alt="sunny icon" />
+            <p>68&deg;</p>
+          </div>
         </div>
-        <div className={styles.status}>
-          <img src="../assets/images/icon-sunny.webp" alt="sunny icon" />
-          <p>68&deg;</p>
+      ) : (
+        <div className={styles.loadingLocation}>
+          <div className={styles.loading}></div>
+          <p>Loading...</p>
         </div>
-      </div>
+      )}
+
       <div className={styles.currentOthers}>
         <p>
           Feels Like <span className={styles.currentData}>64&deg;</span>

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { fetchWeatherApi } from "openmeteo";
 import AppNav from "./components/AppNav/AppNav";
 import AppLayout from "./Pages/AppLayout";
 import Error from "./Pages/Error";
@@ -7,14 +8,12 @@ import Error from "./Pages/Error";
 type units = "metric" | "imperial";
 type unitsOption = true | false;
 
-type searchResult = {
-  id: string | number;
-  name: string;
-};
-
-type geolocation = {
-  latitude: number;
-  longitude: number;
+type resultsState = {
+  id?: number;
+  name?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
 };
 
 function App() {
@@ -22,8 +21,8 @@ function App() {
   const [openUnits, setOpenUnits] = useState<unitsOption>(false);
   const [cityInput, setCityInput] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [results, setResults] = useState<searchResult[]>([]);
-  // const [geolocation, setGeolication] = useState<geolocation>({});
+  const [results, setResults] = useState<resultsState[]>([]);
+  const [selectedCity, setSelectedCity] = useState<resultsState>({});
 
   // Enables closing units button by clicking Escape anywhere on the screen
   useEffect(() => {
@@ -78,6 +77,8 @@ function App() {
                 setCityInput={setCityInput}
                 cityInput={cityInput}
                 results={results}
+                selectedCity={selectedCity}
+                setSelectedCity={setSelectedCity}
               />
             }
           />

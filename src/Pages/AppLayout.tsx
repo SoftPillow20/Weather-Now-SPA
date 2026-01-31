@@ -5,15 +5,20 @@ import WeatherForecast from "../components/Forecasts/WeatherForecast";
 
 type unitsOption = true | false;
 
-type searchResult = {
-  id: string | number;
-  name: string;
+type resultsState = {
+  id?: number;
+  name?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
 };
 
 type childrenProps = {
   isLoading: boolean;
-  results: searchResult[];
+  results: resultsState[];
   cityInput: string;
+  selectedCity: resultsState;
+  setSelectedCity: Dispatch<SetStateAction<resultsState>>;
   setCityInput: Dispatch<SetStateAction<string>>;
   setOpenUnits: Dispatch<SetStateAction<unitsOption>>;
 };
@@ -24,6 +29,8 @@ function AppLayout({
   cityInput,
   setCityInput,
   setOpenUnits,
+  selectedCity,
+  setSelectedCity,
 }: childrenProps) {
   return (
     <>
@@ -33,8 +40,9 @@ function AppLayout({
         cityInput={cityInput}
         isLoading={isLoading}
         results={results}
+        setSelectedCity={setSelectedCity}
       />
-      <WeatherForecast />
+      <WeatherForecast selectedCity={selectedCity} />
     </>
   );
 }

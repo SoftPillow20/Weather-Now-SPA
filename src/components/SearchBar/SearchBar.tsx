@@ -5,17 +5,21 @@ import SearchInProgress from "./SearchInProgress";
 
 type unitsOption = true | false;
 
-type searchResult = {
-  id: string | number;
-  name: string;
+type resultsState = {
+  id?: number;
+  name?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
 };
 
 type childrenProps = {
   isLoading: boolean;
   cityInput: string;
-  results: searchResult[];
+  results: resultsState[];
   setCityInput: Dispatch<SetStateAction<string>>;
   setOpenUnits: Dispatch<SetStateAction<unitsOption>>;
+  setSelectedCity: Dispatch<SetStateAction<resultsState>>;
 };
 
 function SearchBar({
@@ -24,6 +28,7 @@ function SearchBar({
   cityInput,
   setOpenUnits,
   results,
+  setSelectedCity,
 }: childrenProps) {
   // function updateInput(e: React.ChangeEvent<HTMLInputElement>) {
   //   setTimeout(() => {
@@ -42,27 +47,27 @@ function SearchBar({
     return capitalizedWords.join(" ");
   }
 
-  function onKeyGetFirstResult(e: React.KeyboardEvent, results: searchResult) {
+  function onKeyGetFirstResult(e: React.KeyboardEvent, results: resultsState) {
     if (!results) return;
 
-    if (results.name !== capitalizeEachWord(results.name)) {
+    if (results.name !== capitalizeEachWord(results.name!)) {
       return;
     }
 
     if (e.key === "Enter") {
       setCityInput("");
-      console.log(results);
+      setSelectedCity(() => results);
     }
   }
 
-  function onClickGetFirstResult(results: searchResult) {
+  function onClickGetFirstResult(results: resultsState) {
     if (
       results.name !==
       cityInput.charAt(0).toUpperCase() + cityInput.slice(1)
     ) {
       return;
     }
-    console.log(results);
+    setSelectedCity(() => results);
   }
 
   const res = results.flatMap((res) => res);
@@ -85,7 +90,11 @@ function SearchBar({
           <img src="./assets/images/icon-search.svg" alt="search icon" />
           {isLoading && <SearchInProgress />}
           {cityInput.split("").length >= 1 && (
-            <SearchResults res={res} setCityInput={setCityInput} />
+            <SearchResults
+              res={res}
+              setCityInput={setCityInput}
+              setSelectedCity={setSelectedCity}
+            />
           )}
         </div>
         <button
