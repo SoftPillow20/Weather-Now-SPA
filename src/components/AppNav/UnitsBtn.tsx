@@ -1,17 +1,9 @@
-import type { Dispatch, SetStateAction } from "react";
+import usePostContext from "../../UsePostContext";
 import styles from "./UnitsBtn.module.css";
 
-type units = "metric" | "imperial";
-type unitsOption = true | false;
+function UnitsBtn() {
+  const { units, setUnits, openUnits, setOpenUnits } = usePostContext();
 
-type childrenProps = {
-  units: string;
-  setUnits: Dispatch<SetStateAction<units>>;
-  openUnits: boolean;
-  setOpenUnits: Dispatch<SetStateAction<unitsOption>>;
-};
-
-function UnitsBtn({ units, setUnits, openUnits, setOpenUnits }: childrenProps) {
   function btnActive() {
     setOpenUnits((bool) => !bool);
   }

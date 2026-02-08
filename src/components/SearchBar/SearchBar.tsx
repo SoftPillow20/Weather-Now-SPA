@@ -1,40 +1,18 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { resultsState } from "../../Types/types";
 import styles from "./SearchBar.module.css";
 import SearchResults from "./SearchResults";
 import SearchInProgress from "./SearchInProgress";
+import usePostContext from "../../UsePostContext";
 
-type unitsOption = true | false;
-
-type resultsState = {
-  id?: number;
-  name?: string;
-  country?: string;
-  latitude?: number;
-  longitude?: number;
-};
-
-type childrenProps = {
-  isLoading: boolean;
-  cityInput: string;
-  results: resultsState[];
-  setCityInput: Dispatch<SetStateAction<string>>;
-  setOpenUnits: Dispatch<SetStateAction<unitsOption>>;
-  setSelectedCity: Dispatch<SetStateAction<resultsState>>;
-};
-
-function SearchBar({
-  isLoading,
-  setCityInput,
-  cityInput,
-  setOpenUnits,
-  results,
-  setSelectedCity,
-}: childrenProps) {
-  // function updateInput(e: React.ChangeEvent<HTMLInputElement>) {
-  //   setTimeout(() => {
-  //     setCityInput(e.target.value);
-  //   }, 500);
-  // }
+function SearchBar() {
+  const {
+    isLoading,
+    setCityInput,
+    cityInput,
+    setOpenUnits,
+    results,
+    setSelectedCity,
+  } = usePostContext();
 
   function capitalizeEachWord(sentence: string) {
     const words = sentence.split(" ");

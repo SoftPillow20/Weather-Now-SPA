@@ -1,37 +1,7 @@
+import usePostContext from "../../UsePostContext";
 import styles from "./CurrentForecast.module.css";
 
-type resultsState = {
-  id?: number;
-  name?: string;
-  country?: string;
-  latitude?: number;
-  longitude?: number;
-};
-
-type Weather = {
-  current?: {
-    time: string;
-    temperature_2m: number;
-    relative_humidity_2m: number;
-    apparent_temperature: number;
-    precipitation: number;
-    wind_speed_10m: number;
-    weather_code: number;
-  };
-};
-
-type childrenProps = {
-  selectedCity: resultsState;
-  weatherState: Weather;
-};
-
-// type WeatherRule = {
-//   min: number;
-//   max: number;
-//   label: string;
-// };
-
-function CurrentForecast({ weatherState, selectedCity }: childrenProps) {
+function CurrentForecast() {
   // // For testing
   // if (weatherState.current === undefined) {
   //   return;
@@ -42,6 +12,10 @@ function CurrentForecast({ weatherState, selectedCity }: childrenProps) {
   //   );
   //   console.log(interpretWeatherCode(43));
   // }
+
+  const { weatherState, selectedCity } = usePostContext();
+
+  console.log(weatherState.daily?.weather_code[0]);
 
   const date = new Date();
 
