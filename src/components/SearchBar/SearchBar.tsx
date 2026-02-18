@@ -2,17 +2,28 @@ import type { resultsState } from "../../Types/types";
 import styles from "./SearchBar.module.css";
 import SearchResults from "./SearchResults";
 import SearchInProgress from "./SearchInProgress";
-import usePostContext from "../../UsePostContext";
+import usePostContext from "../../contexts/UsePostContext";
+import { useEffect } from "react";
 
 function SearchBar() {
   const {
     isLoading,
+    setIsLoading,
     setCityInput,
     cityInput,
     setOpenUnits,
     results,
     setSelectedCity,
   } = usePostContext();
+
+  useEffect(
+    function () {
+      if (results.length >= 1) {
+        setIsLoading(false);
+      }
+    },
+    [results.length, setIsLoading],
+  );
 
   function capitalizeEachWord(sentence: string) {
     const words = sentence.split(" ");
@@ -62,11 +73,16 @@ function SearchBar() {
             placeholder="Search for a place..."
             value={cityInput}
             onClick={() => setOpenUnits(false)} // closes an open unit setting
-            onChange={(e) => setCityInput(e.target.value)} // updating state through event emitter
+            onChange={(e) => {
+              setCityInput(e.target.value);
+              if (!results.length) {
+                setIsLoading(true);
+              }
+            }} // updating state through event emitter
             onKeyDown={(e) => onKeyGetFirstResult(e, firstRes)}
           />
           <img src="./assets/images/icon-search.svg" alt="search icon" />
-          {isLoading && <SearchInProgress />}
+          {!isLoading ? null : <SearchInProgress />}
           {cityInput.split("").length > 1 && (
             <SearchResults
               res={res}

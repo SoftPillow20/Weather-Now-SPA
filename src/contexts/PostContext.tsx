@@ -7,7 +7,7 @@ import type {
   weatherAction,
   PostContextType,
   props,
-} from "./Types/types";
+} from "../Types/types";
 import { fetchWeatherApi } from "openmeteo";
 
 const initialWeatherState: Weather = {};
@@ -61,7 +61,6 @@ function PostProvider({ children }: props) {
     async function getCities() {
       // If no city input, set loading to false and return early (guard clause)
       if (!cityInput) {
-        setIsLoading(false);
         return;
       }
 
@@ -73,17 +72,6 @@ function PostProvider({ children }: props) {
 
       // this will be the data that are in the array
       const city: { results: [] } = await data.json();
-
-      // if user has typed only one letter
-      // or the city data has no result
-      // set loading to true and return early (guard clause)
-      if (cityInput.split("").length === 1 || !city.results) {
-        setIsLoading(true);
-        return;
-      }
-
-      // otherwise, set loading to false
-      setIsLoading(false);
 
       // return the city data
       return city;
@@ -102,7 +90,7 @@ function PostProvider({ children }: props) {
     return function () {
       controller.abort();
     };
-  }, [isLoading, cityInput]);
+  }, [cityInput]);
 
   // Get the weather API data
   useEffect(() => {
@@ -123,8 +111,6 @@ function PostProvider({ children }: props) {
         timezone: "auto",
       };
 
-      console.log(selectedCity);
-
       // checks if there's a selected city (guard clause)
       if (Object.keys(selectedCity).length === 0) return;
 
@@ -132,10 +118,14 @@ function PostProvider({ children }: props) {
 
       const response = responses[0];
 
+      const daily = response.daily()!;
       const current = response.current()!;
-      const hourly = response.hourly()!;
+
+      console.log(daily);
 
       // Note: The order of weather variables in the URL query and the indices below need to match! (from open-meteo)
+
+      // Save current weather data to the state
       dispatch({
         type: "SET_CURRENT_WEATHER",
         payload: {
@@ -149,12 +139,9 @@ function PostProvider({ children }: props) {
         },
       });
 
-      // typescript will complain here if the "!" rather than "?".
-      const values = hourly.variables(0)?.valuesArray();
+      const values = daily.variables(0)?.valuesArray();
 
-      // typescript will also complain if there's no guard clause here
-      // since the data are fetched from an API,
-      // the values variable can be undefined or the actual data
+      console.log(values);
       if (!values) return;
 
       dispatch({

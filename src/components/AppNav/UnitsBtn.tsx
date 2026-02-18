@@ -1,4 +1,4 @@
-import usePostContext from "../../UsePostContext";
+import usePostContext from "../../contexts/UsePostContext";
 import styles from "./UnitsBtn.module.css";
 
 function UnitsBtn() {

@@ -43,7 +43,23 @@
   background-position: 100%;
   background-size: cover;
   grid-column: 1/ -1;
-  grid-row: span 3;
+  grid-row: span 2;
+}
+
+@media (max-width: 65em) {
+  .location {
+    grid-column: 1/ -1;
+    grid-row: span 3;
+  }
+}
+
+@media (max-width: 32em) {
+  .location {
+    flex-direction: column;
+    padding: 2.6rem;
+    text-align: center;
+    gap: 2rem;
+  }
 }
 
 .loadingLocation {
@@ -54,6 +70,12 @@
   gap: 1.6rem;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 65em) {
+  .loadingLocation {
+    grid-row: span 3;
+  }
 }
 
 .loading {
@@ -101,22 +123,6 @@
 
 .loadingLocation p {
   color: hsl(240, 6%, 70%);
-}
-
-@media (max-width: 65em) {
-  .location {
-    grid-column: 1/ -1;
-    grid-row: span 3;
-  }
-}
-
-@media (max-width: 32em) {
-  .location {
-    flex-direction: column;
-    padding: 2.6rem;
-    text-align: center;
-    gap: 2rem;
-  }
 }
 
 .status {

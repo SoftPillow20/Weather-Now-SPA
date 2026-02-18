@@ -1,4 +1,4 @@
-import usePostContext from "../../UsePostContext";
+import usePostContext from "../../contexts/UsePostContext";
 import styles from "./CurrentForecast.module.css";
 
 function CurrentForecast() {
@@ -15,7 +15,7 @@ function CurrentForecast() {
 
   const { weatherState, selectedCity } = usePostContext();
 
-  console.log(weatherState.daily?.weather_code[0]);
+  // console.log(weatherState.daily?.weather_code[0]);
 
   const date = new Date();
 

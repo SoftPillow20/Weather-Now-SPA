@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { PostProvider } from "./PostContext";
+import { PostProvider } from "./contexts/PostContext";
 import AppNav from "./components/AppNav/AppNav";
 import AppLayout from "./Pages/AppLayout";
 import Error from "./Pages/Error";
