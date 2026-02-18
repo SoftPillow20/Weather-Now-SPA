@@ -2,20 +2,11 @@ import usePostContext from "../../contexts/UsePostContext";
 import styles from "./CurrentForecast.module.css";
 
 function CurrentForecast() {
-  // // For testing
-  // if (weatherState.current === undefined) {
-  //   return;
-  // } else {
-  //   console.log(Math.round(weatherState.current.weather_code));
-  //   console.log(
-  //     interpretWeatherCode(Math.round(weatherState.current.weather_code)),
-  //   );
-  //   console.log(interpretWeatherCode(43));
-  // }
+  const { weatherState, selectedCity, getWeatherKey } = usePostContext();
 
-  const { weatherState, selectedCity } = usePostContext();
+  const weatherCodeDaily = weatherState.daily?.weather_code[0];
 
-  // console.log(weatherState.daily?.weather_code[0]);
+  const weatherToday = getWeatherKey(!weatherCodeDaily ? -1 : weatherCodeDaily);
 
   const date = new Date();
 
@@ -38,7 +29,10 @@ function CurrentForecast() {
             <p>{formattedGB}</p>
           </div>
           <div className={styles.status}>
-            <img src={`../assets/images/icon-sunny.webp`} alt="sunny icon" />
+            <img
+              src={`../assets/images/icon-${weatherToday}.webp`}
+              alt="sunny icon"
+            />
             <p>{weatherState.current?.temperature_2m}&deg;</p>
           </div>
         </div>

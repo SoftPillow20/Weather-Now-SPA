@@ -38,6 +38,16 @@ export type weatherAction =
       payload: Weather["daily"];
     };
 
+export type WMO = {
+  sunny: number[];
+  "partly-cloudy": number[];
+  overcast: number[];
+  drizzle: number[];
+  rain: number[];
+  snow: number[];
+  storm: number[];
+};
+
 export type PostContextType = {
   units: units;
   setUnits: React.Dispatch<React.SetStateAction<units>>;
@@ -53,4 +63,5 @@ export type PostContextType = {
   setSelectedCity: React.Dispatch<React.SetStateAction<resultsState>>;
   weatherState: Weather;
   dispatch: React.Dispatch<weatherAction>;
+  getWeatherKey: (code: number) => keyof WMO | undefined;
 };

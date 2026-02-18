@@ -7,6 +7,7 @@ import type {
   weatherAction,
   PostContextType,
   props,
+  WMO,
 } from "../Types/types";
 import { fetchWeatherApi } from "openmeteo";
 
@@ -43,6 +44,26 @@ function PostProvider({ children }: props) {
     weatherReducer,
     initialWeatherState,
   );
+
+  const WMO: WMO = {
+    sunny: [0, 1],
+    "partly-cloudy": [2],
+    overcast: [3],
+    drizzle: [51, 53, 55, 56, 57],
+    rain: [61, 63, 65, 66, 67, 80, 81, 82],
+    snow: [71, 73, 75, 77, 85, 86],
+    storm: [95, 96, 99],
+  };
+
+  function getWeatherKey(code: number): keyof typeof WMO | undefined {
+    if (code === -1) {
+      return;
+    }
+
+    return (Object.keys(WMO) as (keyof typeof WMO)[]).find((key) =>
+      WMO[key].includes(code),
+    );
+  }
 
   // Enables closing units button by clicking Escape anywhere on the screen
   useEffect(() => {
@@ -121,8 +142,6 @@ function PostProvider({ children }: props) {
       const daily = response.daily()!;
       const current = response.current()!;
 
-      console.log(daily);
-
       // Note: The order of weather variables in the URL query and the indices below need to match! (from open-meteo)
 
       // Save current weather data to the state
@@ -141,7 +160,6 @@ function PostProvider({ children }: props) {
 
       const values = daily.variables(0)?.valuesArray();
 
-      console.log(values);
       if (!values) return;
 
       dispatch({
@@ -171,6 +189,7 @@ function PostProvider({ children }: props) {
         setSelectedCity,
         weatherState,
         dispatch,
+        getWeatherKey,
       }}
     >
       {children}

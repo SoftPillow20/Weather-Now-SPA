@@ -20,14 +20,12 @@ function SearchResults({ setCityInput, res, setSelectedCity }: childrenProps) {
     if (e.key === "Enter") {
       setCityInput("");
       setSelectedCity(() => result);
-      console.log(result);
     }
   }
 
   function onClickGetResults(result: resultsState) {
     setCityInput("");
     setSelectedCity(() => result);
-    console.log(result);
   }
 
   return (
