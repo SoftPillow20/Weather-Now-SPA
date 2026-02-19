@@ -55,6 +55,16 @@ function PostProvider({ children }: props) {
     storm: [95, 96, 99],
   };
 
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  function sortDaysFromToday(days: string[]) {
+    const todayIndex = new Date().getDay();
+
+    return [...days.slice(todayIndex), ...days.slice(0, todayIndex)];
+  }
+
+  const sortedDays = sortDaysFromToday(days);
+
   function getWeatherKey(code: number): keyof typeof WMO | undefined {
     if (code === -1) {
       return;
@@ -120,7 +130,7 @@ function PostProvider({ children }: props) {
       const params = {
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
-        daily: "weather_code",
+        daily: ["weather_code", "temperature_2m_max", "temperature_2m_min"],
         current: [
           "temperature_2m",
           "relative_humidity_2m",
@@ -158,14 +168,18 @@ function PostProvider({ children }: props) {
         },
       });
 
-      const values = daily.variables(0)?.valuesArray();
+      const weatherCode = daily.variables(0)?.valuesArray();
+      const tempMaxDaily = daily.variables(1)?.valuesArray();
+      const tempMinDaily = daily.variables(2)!.valuesArray();
 
-      if (!values) return;
+      if (!weatherCode || !tempMaxDaily || !tempMinDaily) return;
 
       dispatch({
         type: "SET_DAILY_WEATHER",
         payload: {
-          weather_code: Array.from(values),
+          weather_code: Array.from(weatherCode),
+          temperature_2m_max: Array.from(tempMaxDaily),
+          temperature_2m_min: Array.from(tempMinDaily),
         },
       });
     }
@@ -190,6 +204,7 @@ function PostProvider({ children }: props) {
         weatherState,
         dispatch,
         getWeatherKey,
+        sortedDays,
       }}
     >
       {children}

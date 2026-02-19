@@ -25,6 +25,8 @@ export type Weather = {
   };
   daily?: {
     weather_code: number[];
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
   };
 };
 
@@ -63,5 +65,6 @@ export type PostContextType = {
   setSelectedCity: React.Dispatch<React.SetStateAction<resultsState>>;
   weatherState: Weather;
   dispatch: React.Dispatch<weatherAction>;
+  sortedDays: string[];
   getWeatherKey: (code: number) => keyof WMO | undefined;
 };
