@@ -1,36 +1,25 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { resultsState } from "../../Types/types";
 import styles from "./SearchResults.module.css";
+import usePostContext from "../../contexts/UsePostContext";
 
-type resultsState = {
-  id?: number;
-  name?: string;
-  country?: string;
-  latitude?: number;
-  longitude?: number;
-};
+function SearchResults() {
+  const { setcitySearchQuery, setSelectedCity, results } = usePostContext();
 
-type childrenProps = {
-  res: resultsState[];
-  setCityInput: Dispatch<SetStateAction<string>>;
-  setSelectedCity: Dispatch<SetStateAction<resultsState>>;
-};
-
-function SearchResults({ setCityInput, res, setSelectedCity }: childrenProps) {
   function onKeyGetResults(e: React.KeyboardEvent, result: resultsState) {
     if (e.key === "Enter") {
-      setCityInput("");
+      setcitySearchQuery("");
       setSelectedCity(() => result);
     }
   }
 
   function onClickGetResults(result: resultsState) {
-    setCityInput("");
+    setcitySearchQuery("");
     setSelectedCity(() => result);
   }
 
   return (
     <ul className={styles.searchCitiesList}>
-      {res.map((result) => (
+      {results.map((result) => (
         <li
           onClick={() => onClickGetResults(result)}
           onKeyDown={(e) => onKeyGetResults(e, result)}

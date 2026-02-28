@@ -28,6 +28,10 @@ export type Weather = {
     temperature_2m_max: number[];
     temperature_2m_min: number[];
   };
+  hourly?: {
+    weather_code: number[];
+    temperature_2m: number[];
+  };
 };
 
 export type weatherAction =
@@ -38,6 +42,10 @@ export type weatherAction =
   | {
       type: "SET_DAILY_WEATHER";
       payload: Weather["daily"];
+    }
+  | {
+      type: "SET_HOURLY_WEATHER";
+      payload: Weather["hourly"];
     };
 
 export type WMO = {
@@ -55,8 +63,8 @@ export type PostContextType = {
   setUnits: React.Dispatch<React.SetStateAction<units>>;
   openUnits: unitsOption;
   setOpenUnits: React.Dispatch<React.SetStateAction<unitsOption>>;
-  cityInput: string;
-  setCityInput: React.Dispatch<React.SetStateAction<string>>;
+  citySearchQuery: string;
+  setcitySearchQuery: React.Dispatch<React.SetStateAction<string>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   results: resultsState[];

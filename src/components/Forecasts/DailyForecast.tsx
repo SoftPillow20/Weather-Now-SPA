@@ -16,7 +16,7 @@ function DailyForecast() {
         {selectedCity && weatherState.daily
           ? sortedDays.map((day, index) => (
               <li key={day}>
-                <p>{day}</p>
+                <p>{day.slice(0, 3)}</p>
                 <img
                   src={`../assets/images/icon-${getWeatherKey(weatherState.daily!.weather_code[index])}.webp`}
                   alt={`${getWeatherKey(weatherState.daily!.weather_code[index])} icon`}

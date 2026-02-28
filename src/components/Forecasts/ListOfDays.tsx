@@ -1,15 +1,20 @@
+import usePostContext from "../../contexts/UsePostContext";
 import styles from "./ListOfDays.module.css";
 
-function ListOfDays() {
+type childrenProps = {
+  setSelectedDay: React.Dispatch<React.SetStateAction<number>>;
+};
+
+function ListOfDays({ setSelectedDay }: childrenProps) {
+  const { selectedCity, sortedDays } = usePostContext();
   return (
     <ul className={styles.listOfDays}>
-      <li tabIndex={0}>Monday</li>
-      <li tabIndex={0}>Tuesday</li>
-      <li tabIndex={0}>Wednesday</li>
-      <li tabIndex={0}>Thursday</li>
-      <li tabIndex={0}>Friday</li>
-      <li tabIndex={0}>Saturday</li>
-      <li tabIndex={0}>Sunday</li>
+      {selectedCity &&
+        sortedDays.map((day, index) => (
+          <li key={day} tabIndex={0} onClick={() => setSelectedDay(index)}>
+            {day}
+          </li>
+        ))}
     </ul>
   );
 }

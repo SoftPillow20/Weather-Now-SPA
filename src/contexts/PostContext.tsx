@@ -25,6 +25,8 @@ function weatherReducer(state: Weather, action: weatherAction): Weather {
         ...state,
         daily: action.payload,
       };
+    case "SET_HOURLY_WEATHER":
+      return { ...state, hourly: action.payload };
     default:
       return state;
   }
@@ -36,7 +38,7 @@ const PostContext = createContext<PostContextType | null>(null);
 function PostProvider({ children }: props) {
   const [units, setUnits] = useState<units>("metric");
   const [openUnits, setOpenUnits] = useState<unitsOption>(false);
-  const [cityInput, setCityInput] = useState<string>("");
+  const [citySearchQuery, setcitySearchQuery] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [results, setResults] = useState<resultsState[]>([]);
   const [selectedCity, setSelectedCity] = useState<resultsState>({});
@@ -55,7 +57,15 @@ function PostProvider({ children }: props) {
     storm: [95, 96, 99],
   };
 
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   function sortDaysFromToday(days: string[]) {
     const todayIndex = new Date().getDay();
@@ -91,13 +101,13 @@ function PostProvider({ children }: props) {
 
     async function getCities() {
       // If no city input, set loading to false and return early (guard clause)
-      if (!cityInput) {
+      if (!citySearchQuery) {
         return;
       }
 
       // fetching the data from an API using fetch API
       const data = await fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${cityInput}&count=4&language=en&format=json`,
+        `https://geocoding-api.open-meteo.com/v1/search?name=${citySearchQuery}&count=4&language=en&format=json`,
         { signal: controller.signal },
       );
 
@@ -121,7 +131,7 @@ function PostProvider({ children }: props) {
     return function () {
       controller.abort();
     };
-  }, [cityInput]);
+  }, [citySearchQuery]);
 
   // Get the weather API data
   useEffect(() => {
@@ -130,6 +140,7 @@ function PostProvider({ children }: props) {
       const params = {
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
+        hourly: ["temperature_2m", "weather_code"],
         daily: ["weather_code", "temperature_2m_max", "temperature_2m_min"],
         current: [
           "temperature_2m",
@@ -149,6 +160,7 @@ function PostProvider({ children }: props) {
 
       const response = responses[0];
 
+      const hourly = response.hourly()!;
       const daily = response.daily()!;
       const current = response.current()!;
 
@@ -182,6 +194,19 @@ function PostProvider({ children }: props) {
           temperature_2m_min: Array.from(tempMinDaily),
         },
       });
+
+      const hourlyTemperature = hourly.variables(0)!.valuesArray();
+      const hourlyWeatherCode = hourly.variables(1)!.valuesArray();
+
+      if (!hourlyTemperature || !hourlyWeatherCode) return;
+
+      dispatch({
+        type: "SET_HOURLY_WEATHER",
+        payload: {
+          temperature_2m: Array.from(hourlyTemperature),
+          weather_code: Array.from(hourlyWeatherCode),
+        },
+      });
     }
     getWeatherData();
   }, [selectedCity]);
@@ -193,8 +218,8 @@ function PostProvider({ children }: props) {
         setUnits,
         openUnits,
         setOpenUnits,
-        cityInput,
-        setCityInput,
+        citySearchQuery,
+        setcitySearchQuery,
         isLoading,
         setIsLoading,
         results,

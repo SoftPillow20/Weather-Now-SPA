@@ -9,11 +9,12 @@ function SearchBar() {
   const {
     isLoading,
     setIsLoading,
-    setCityInput,
-    cityInput,
+    setcitySearchQuery,
+    citySearchQuery,
     setOpenUnits,
     results,
     setSelectedCity,
+    selectedCity,
   } = usePostContext();
 
   useEffect(
@@ -44,7 +45,7 @@ function SearchBar() {
     }
 
     if (e.key === "Enter") {
-      setCityInput("");
+      setcitySearchQuery("");
       setSelectedCity(() => results);
     }
   }
@@ -52,7 +53,7 @@ function SearchBar() {
   function onClickGetFirstResult(results: resultsState) {
     if (
       results.name !==
-      cityInput.charAt(0).toUpperCase() + cityInput.slice(1)
+      citySearchQuery.charAt(0).toUpperCase() + citySearchQuery.slice(1)
     ) {
       return;
     }
@@ -71,10 +72,10 @@ function SearchBar() {
             name="searchBar"
             type="text"
             placeholder="Search for a place..."
-            value={cityInput}
+            value={citySearchQuery}
             onClick={() => setOpenUnits(false)} // closes an open unit setting
             onChange={(e) => {
-              setCityInput(e.target.value);
+              setcitySearchQuery(e.target.value);
               if (!results.length) {
                 setIsLoading(true);
               }
@@ -82,14 +83,8 @@ function SearchBar() {
             onKeyDown={(e) => onKeyGetFirstResult(e, firstRes)}
           />
           <img src="./assets/images/icon-search.svg" alt="search icon" />
-          {!isLoading ? null : <SearchInProgress />}
-          {cityInput.split("").length > 1 && (
-            <SearchResults
-              res={res}
-              setCityInput={setCityInput}
-              setSelectedCity={setSelectedCity}
-            />
-          )}
+          {isLoading || !selectedCity ? <SearchInProgress /> : null}
+          {citySearchQuery.split("").length > 1 && <SearchResults />}
         </div>
         <button
           role="button"
