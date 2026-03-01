@@ -5,7 +5,11 @@ import SearchInProgress from "./SearchInProgress";
 import usePostContext from "../../contexts/UsePostContext";
 import { useEffect } from "react";
 
-function SearchBar() {
+type childrenProps = {
+  setNoResults: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function SearchBar({ setNoResults }: childrenProps) {
   const {
     isLoading,
     setIsLoading,
@@ -26,27 +30,16 @@ function SearchBar() {
     [results.length, setIsLoading],
   );
 
-  function capitalizeEachWord(sentence: string) {
-    const words = sentence.split(" ");
-
-    const capitalizedWords = words.map((word) => {
-      if (word.length === 0) return "";
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    });
-
-    return capitalizedWords.join(" ");
-  }
-
   function onKeyGetFirstResult(e: React.KeyboardEvent, results: resultsState) {
-    if (!results) return;
-
-    if (results.name !== capitalizeEachWord(results.name!)) {
+    if (!results && e.key === "Enter") {
+      setNoResults(true);
       return;
     }
 
-    if (e.key === "Enter") {
+    if (results && e.key === "Enter") {
       setcitySearchQuery("");
-      setSelectedCity(() => results);
+      setSelectedCity(results);
+      setNoResults(false);
     }
   }
 

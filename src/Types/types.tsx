@@ -56,6 +56,7 @@ export type WMO = {
   rain: number[];
   snow: number[];
   storm: number[];
+  fog: number[];
 };
 
 export type PostContextType = {
