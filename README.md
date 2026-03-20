@@ -84,7 +84,7 @@ This is a solution to the [Weather app challenge on Frontend Mentor](https://www
 ### Links
 
 - Solution URL: [Github](https://github.com/SoftPillow20/Weather-Now-SPA)
-- Live Site URL: [WeatherNow-Bern](https://your-live-site-url.com)
+- Live Site URL: [https://weathernow-bern.netlify.app](https://weathernow-bern.netlify.app/)
 
 ## My process
 
@@ -97,8 +97,6 @@ This is a solution to the [Weather app challenge on Frontend Mentor](https://www
 - [Vite]
 - [react-router-dom]
 - [TypeScript] /_Optional_/
-- [Vitest] /_Optional_/
-- [Three.js] /_Optional_/
 
 ### What I learned
 
