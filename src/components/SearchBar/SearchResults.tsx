@@ -26,7 +26,10 @@ function SearchResults() {
           key={result.id}
           tabIndex={0}
         >
-          {result.name}
+          <p>
+            {result.name}, {result.country}
+          </p>
+          <span>{result.admin1}</span>
         </li>
       ))}
     </ul>

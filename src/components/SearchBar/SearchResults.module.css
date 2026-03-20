@@ -1,6 +1,7 @@
 .searchCitiesList {
   font-size: inherit;
   background-color: hsl(243, 27%, 20%);
+  box-shadow: inset 0px 0px 6px 1px hsl(243, 23%, 24%);
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -16,6 +17,9 @@
   padding: 1.2rem 0.8rem;
   cursor: pointer;
   border-radius: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .searchCitiesList li:hover,
@@ -23,4 +27,15 @@
   box-shadow: inset 0px 0px 0px 1px hsl(243, 23%, 30%);
   background-color: hsl(243, 23%, 24%);
   z-index: 9999;
+}
+
+.searchCitiesList li > p {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.searchCitiesList li > span {
+  font-size: 1.6rem;
+  font-style: italic;
+  color: rgb(146, 144, 169);
 }
