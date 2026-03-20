@@ -30,7 +30,6 @@ This is a solution to the [Weather app challenge on Frontend Mentor](https://www
 - Dev: Display list/s of appeared cities/countries and update it whenever user types on the search bar.
 
 - If user enter/searched invalid inputs:
-
   - Display "no search result found!" page.
 
 - Else:
@@ -80,12 +79,12 @@ This is a solution to the [Weather app challenge on Frontend Mentor](https://www
 
 ### Screenshot
 
-TBD
+![website screenshot](image.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Github](https://github.com/SoftPillow20/Weather-Now-SPA)
+- Live Site URL: [WeatherNow-Bern](https://your-live-site-url.com)
 
 ## My process
 
