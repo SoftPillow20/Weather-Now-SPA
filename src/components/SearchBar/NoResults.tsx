@@ -1,4 +1,4 @@
-import styles from "./noResults.module.css";
+import styles from "./NoResults.module.css";
 
 function NoResults() {
   return (
