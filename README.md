@@ -100,17 +100,24 @@ This is a solution to the [Weather app challenge on Frontend Mentor](https://www
 
 ### What I learned
 
-TBD
+I continuously solidify my react skills with this project.
+
+- I've learned how to use typescript and how important it is to have types in my code. Funny enough, when I started learning and writing typescript, it was so hard I had to stop for a week. I did not like how I had to write each and every types for each and every component (which for me defeats the purpose of DRY method). However, after knowing how to use it properly (from trial and error) I've realized how powerful typescript can be. Sometimes, when I'm writing pure react code without typescript, I keep thinking of how nice it would be if it had typescript in it.
+
+- However, not every projects need to be written in typescript, specially not on this one. I realized that maybe a JS doc would suffice than using the entire tool box such as typescript (I only used it for learning purposes).
+
+- Additionally, most of the things I've done with this project has the same way of how I wrote the other project I made (worldwise app).
+
+- However, most of the decisions of how I created this web app was mine, unlike the other app that I use as a reference (that project was made through a code-along course on udemy).
 
 ### Continued development
 
-TBD
+This web app is almost finish, but there is only one functionality missing that is changing the unit from imperial to metric.
 
-### Useful resources
-
-TBD
+I may add some couple animations for each components or weather cards to have it be visually appealing.
 
 ## Author
 
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Frontend Mentor - [@softpillow20](https://www.frontendmentor.io/profile/SoftPillow20)
+
+- Github - [@SoftPillow20](https://github.com/SoftPillow20)
