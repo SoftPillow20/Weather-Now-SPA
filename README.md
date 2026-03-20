@@ -116,6 +116,8 @@ This web app is almost finish, but there is only one functionality missing that 
 
 I may add some couple animations for each components or weather cards to have it be visually appealing.
 
+**IMPORTANT**: I'm planning on making this web app as a Progressive Web App (PWA). All modern weather applications are now PWAs.
+
 ## Author
 
 - Frontend Mentor - [@softpillow20](https://www.frontendmentor.io/profile/SoftPillow20)
